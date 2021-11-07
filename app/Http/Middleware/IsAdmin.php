@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Ui\Presets\React;
+
 class IsAdmin
 {
     /**
@@ -17,11 +19,9 @@ class IsAdmin
     {
         if(Auth::user() && Auth::user()->roles == 'admin')
         {
-            //
+            return $next($request);
         }else{
-            //
+            return redirect('/');
         }
-
-        return $next($request);
     }
 }
