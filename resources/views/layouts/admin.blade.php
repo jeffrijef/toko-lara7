@@ -30,7 +30,7 @@
           <div class="list-group list-group-flush">
             <a
               href="{{ route('admin-dashboard') }}"
-              class="list-group-item list-group-item-action"
+              class="list-group-item list-group-item-action {{ (request()->is('admin')) ? 'active' : '' }}"
               >Dashboard</a
             >
             <a
@@ -39,8 +39,8 @@
               >Products</a
             >
             <a
-              href="#"
-              class="list-group-item list-group-item-action"
+              href="{{ route('category.index') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('admin/category')) ? 'active' : '' }}"
               >Categories</a
             >
             <a
