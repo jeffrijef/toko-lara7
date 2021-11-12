@@ -55,7 +55,7 @@ Edit Product
 
                             <div class="col-md-12">
                               <div class="form-froup">
-                                <label>Pemilik Product</label>
+                                <label>Kategori Product</label>
                                 <select name="categories_id" class="form-control">
                                   <option value="{{ $item->categories_id }}" selected>{{ $item->category->name }}</option>
                                   @foreach ($categories as $c)

@@ -53,7 +53,7 @@ Add Product
 
                             <div class="col-md-12">
                               <div class="form-froup">
-                                <label>Pemilik Product</label>
+                                <label>Kategori Product</label>
                                 <select name="categories_id" class="form-control">
                                   @foreach ($categories as $c)
                                       <option value="{{ $c->id }}">{{ $c->name }}</option>

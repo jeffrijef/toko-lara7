@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 use App\Http\Requests\Admin\CategoryRequest;
+use App\Http\Requests\Admin\CategoryRequest2;
 
 //use Yajra\DataTables\Contracts\DataTable;
 //use Yajra\DataTables\DataTables as DataTablesDataTables;
@@ -83,8 +84,9 @@ class CategoryController extends Controller
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name);
-        $data['photo'] = $request->file('photo')->store('assets/category','public');
 
+        $data['photo'] = $request->file('photo')->store('assets/category','public');
+        
         Category::create($data);
 
         return redirect()->route('category.index');
@@ -121,12 +123,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest2 $request, $id)
     {
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name);
-        $data['photo'] = $request->file('photo')->store('assets/category','public');
+
+        if($request->photo)
+        {
+            $data['photo'] = $request->file('photo')->store('assets/category','public');
+        }else{
+            unset($data['photo']);
+        }
 
         $item = Category::findOrFail($id);
 
