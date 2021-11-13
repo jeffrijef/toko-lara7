@@ -28,17 +28,56 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Rewards</a>
             </li>
+            @guest
             <li class="nav-item">
-              <a class="nav-link" href="/register.html">Sign Up</a>
+              <a class="nav-link" href="{{ route('register') }}">Sign Up</a>
             </li>
             <li class="nav-item">
               <a
                 class="btn btn-success nav-link px-4 text-white"
-                href="/login.html"
+                href="{{ route('login') }}"
                 >Sign In</a
               >
-            </li>
+            </li> 
+            @endguest
           </ul>
+
+          @auth
+            <ul class="navbar-nav d-none d-lg-flex">
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
+                  <img src="/images/icon-user.png" alt="" class="round-circle mr2 profile-picture">
+                  Hi, {{ Auth::user()->name }}
+                </a>
+                <div class="dropdown-menu">
+                  <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                  <a href="{{ route('dashboard-setting-account') }}" class="dropdown-item">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();" class="dropdown-item">
+                    Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                    </form>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-inline-block mt2">
+                  <img src="/images/icon-cart-emty.svg" alt="">
+                </a>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav d-block-d-lg-none">
+              
+              <li class="nav-item">
+                <a href="#" class="nav-link d-inline-block">Cart</a>
+              </li>
+            </ul>
+
+          @endauth
+
         </div>
       </div>
     </nav>
