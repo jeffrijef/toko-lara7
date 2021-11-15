@@ -131,7 +131,7 @@ Toko
                       {{ $p->name }}
                     </div>
                     <div class="products-price">
-                      Rp. {{ $p->price }}
+                      Rp. {{ number_format($p->price) }}
                     </div>
                   </a>
                 </div>
