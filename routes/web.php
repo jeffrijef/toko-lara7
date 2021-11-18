@@ -21,6 +21,8 @@ Route::post('/details/{id}', 'DetailController@add')->name('detail-add');
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::delete('/cart/{id}', 'CartController@delete')->name('cart-delete');
 
+Route::post('/checkout', 'CheckoutController@process')->name('checkout');
+Route::post('/checkout/callback', 'CheckoutController@callback')->name('callback');
 
 Route::get('/dashboard', 'DashboardController@index')
     ->name('dashboard');

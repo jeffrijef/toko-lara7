@@ -109,8 +109,9 @@ Cart
             </div>
           </div>
 
-          <form action="#" method="post" id="locations" >
+          <form action="{{ route('checkout') }}" method="post" id="locations" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="total_price" value="{{ $total }}">
             <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
               <div class="col-md-6">
                 <div class="form-group">
@@ -217,12 +218,11 @@ Cart
                 <div class="product-subtitle">Total</div>
               </div>
               <div class="col-8 col-md-3">
-                <a
-                  href="/success.html"
+                <button type="submit"
                   class="btn btn-success mt-4 px-4 btn-block"
                 >
                   Checkout Now
-                </a>
+                </button>
               </div>
             </div>
           </form>
