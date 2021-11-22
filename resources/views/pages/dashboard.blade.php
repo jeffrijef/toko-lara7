@@ -24,7 +24,7 @@ Toko Dashboard
                           Customer
                         </div>
                         <div class="dashboard-card-subtitle">
-                          15,209
+                          {{ number_format($cos) }}
                         </div>
                       </div>
                     </div>
@@ -36,7 +36,7 @@ Toko Dashboard
                           Revenue
                         </div>
                         <div class="dashboard-card-subtitle">
-                          $931,290
+                          Rp. {{ number_format($rev) }}
                         </div>
                       </div>
                     </div>
@@ -48,7 +48,7 @@ Toko Dashboard
                           Transaction
                         </div>
                         <div class="dashboard-card-subtitle">
-                          22,409,399
+                          {{ number_format($tran_c) }}
                         </div>
                       </div>
                     </div>
@@ -57,96 +57,47 @@ Toko Dashboard
                 <div class="row mt-3">
                   <div class="col-12 mt-2">
                     <h5 class="mb-3">Recent Transactions</h5>
-                    <a
-                      class="card card-list d-block"
-                      href="/dashboard-transactions-details.html"
-                    >
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-1">
-                            <img
-                              src="/images/dashboard-icon-product-1.png"
-                              alt=""
-                            />
-                          </div>
-                          <div class="col-md-4">
-                            Shirup Marzzan
-                          </div>
-                          <div class="col-md-3">
-                            Angga Risky
-                          </div>
-                          <div class="col-md-3">
-                            12 Januari, 2020
-                          </div>
-                          <div class="col-md-1 d-none d-md-block">
-                            <img
-                              src="/images/dashboard-arrow-right.svg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                    <a
-                      class="card card-list d-block"
-                      href="/dashboard-transactions-details.html"
-                    >
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-1">
-                            <img
-                              src="/images/dashboard-icon-product-2.png"
-                              alt=""
-                            />
-                          </div>
-                          <div class="col-md-4">
-                            LeBrone X
-                          </div>
-                          <div class="col-md-3">
-                            Masayoshi
-                          </div>
-                          <div class="col-md-3">
-                            11 January, 2020
-                          </div>
-                          <div class="col-md-1 d-none d-md-block">
-                            <img
-                              src="/images/dashboard-arrow-right.svg"
-                              alt=""
-                            />
+
+                    @forelse ($tran_d as $t)
+
+                      <a class="card card-list d-block" 
+                        href="{{ route('dashboard-product-details',$t->id) }}">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-1">
+                              <img
+                                src="{{ Storage::url($t->product->galleries->first()->photos ?? '') }}"
+                                alt="" class="w-75"
+                              />
+                            </div>
+                            <div class="col-md-4">
+                              {{ $t->product->name ?? '' }}
+                            </div>
+                            <div class="col-md-3">
+                              {{ $t->transaction->user->name ?? '' }}
+                            </div>
+                            <div class="col-md-3">
+                              {{ $t->created_at ?? '' }}
+                            </div>
+                            <div class="col-md-1 d-none d-md-block">
+                              <img
+                                src="/images/dashboard-arrow-right.svg"
+                                alt=""
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </a>
-                    <a
-                      class="card card-list d-block"
-                      href="/dashboard-transactions-details.html"
-                    >
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-1">
-                            <img
-                              src="/images/dashboard-icon-product-3.png"
-                              alt=""
-                            />
-                          </div>
-                          <div class="col-md-4">
-                            Soffa Lembutte
-                          </div>
-                          <div class="col-md-3">
-                            Shayna
-                          </div>
-                          <div class="col-md-3">
-                            11 January, 2020
-                          </div>
-                          <div class="col-md-1 d-none d-md-block">
-                            <img
-                              src="/images/dashboard-arrow-right.svg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </a>
+                      </a>
+                        
+                    @empty
+
+                      <a class="card card-list d-block" 
+                        href="#">
+                        Masih Kosong
+                      </a>
+                        
+                    @endforelse
+                    
                   </div>
                 </div>
               </div>

@@ -28,32 +28,43 @@
           </div>
           <div class="list-group list-group-flush">
             <a
-              href="/dashboard.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard')) ? 'active' : '' }}"
               >Dashboard</a
             >
             <a
-              href="/dashboard-products.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-product') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard/product*')) ? 'active' : '' }}"
               >My Products</a
             >
             <a
-              href="/dashboard-transactions.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-transaction') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions*')) ? 'active' : '' }}"
               >Transactions</a
             >
             <a
-              href="/dashboard-settings.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-setting-store') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('/dashboard/settings*')) ? 'active' : '' }}"
               >Store Settings</a
             >
             <a
-              href="/dashboard-account.html"
-              class="list-group-item list-group-item-action"
+              href="{{ route('dashboard-setting-account') }}"
+              class="list-group-item list-group-item-action {{ (request()->is('/dashboard/account*')) ? 'active' : '' }}"
               >My Account</a
             >
+
+            <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"
+                    class="list-group-item list-group-item-action">
+              Sing out
+            </a>
+
           </div>
         </div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+        </form>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
@@ -98,37 +109,72 @@
                       alt=""
                       class="rounded-circle mr-2 profile-picture"
                     />
-                    Hi, Angga
+                    Hi, {{ Auth::user()->name }}
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/index.html"
+                    <a class="dropdown-item" href="{{ route('home') }}"
                       >Back to Store</a
                     >
-                    <a class="dropdown-item" href="/dashboard-account.html"
+                    <a class="dropdown-item" href="{{ route('dashboard-setting-account') }}"
                       >Settings</a
                     >
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/">Logout</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                    Logout</a>
                   </div>
                 </li>
+                
                 <li class="nav-item">
-                  <a class="nav-link d-inline-block mt-2" href="#">
-                    <img src="/images/icon-cart-empty.svg" alt="" />
+                  <a href="{{ route('cart') }}" class="nav-link d-inline-block mt2">
+                    @php
+                      $carts = \App\Cart::where('users_id',Auth::user()->id)->count();
+                    @endphp
+                    @if ($carts > 0 )
+                      <img src="/images/icon-cart-empty.svg" alt="">
+                      <div class="cart-badge">{{ $carts }}</div>
+                    @else
+                      <img src="/images/icon-cart.svg" alt="">
+                    @endif
                   </a>
                 </li>
+
               </ul>
               <!-- Mobile Menu -->
               <ul class="navbar-nav d-block d-lg-none mt-3">
+
                 <li class="nav-item">
                   <a class="nav-link" href="#">
-                    Hi, Angga
+                    Hi, {{ Auth::user()->name }}
                   </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link d-inline-block" href="#">
-                    Cart
-                  </a>
-                </li>
+                <div class="dropdown-menu">
+                  <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                  <a href="{{ route('dashboard-setting-account') }}" class="dropdown-item">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();" class="dropdown-item">
+                    Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                    </form>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('cart') }}" class="nav-link d-inline-block mt2">
+                  @php
+                    $carts = \App\Cart::where('users_id',Auth::user()->id)->count();
+                  @endphp
+                  @if ($carts > 0 )
+                    <img src="/images/icon-cart.svg" alt="">
+                    <div class="cart-badge">{{ $carts }}</div>
+                  @else
+                    <img src="/images/icon-cart.svg" alt="">
+                  @endif
+                </a>
+              </li>
+                
               </ul>
             </div>
           </nav>
