@@ -15,11 +15,23 @@ ADD Products
                 <p class="dashboard-subtitle">
                   Create your own product
                 </p>
+                
+                    @if ($errors->any())
+                      <div class="alert alert-danger">
+                        <ul>
+                          @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                          @endforeach
+                        </ul>
+                      </div>
+                    @endif
               </div>
               <div class="dashboard-content">
                 <div class="row">
                   <div class="col-12">
-                    <form action="">
+                    <form action="{{ route('dashboard-product-store') }}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                       <div class="card">
                         <div class="card-body">
                           <div class="row">
@@ -31,8 +43,8 @@ ADD Products
                                   class="form-control"
                                   id="name"
                                   aria-describedby="name"
-                                  name="storeName"
-                                  value="Papel La Casa"
+                                  name="name"
+                                  value=""
                                 />
                               </div>
                             </div>
@@ -45,21 +57,31 @@ ADD Products
                                   id="price"
                                   aria-describedby="price"
                                   name="price"
-                                  value="200"
+                                  value=""
                                 />
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="categories_id">Kategori</label>
+                                <select name="categories_id" class="form-control">
+                                  @foreach ($category as $c)
+                                      <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                  @endforeach
+                                </select>
                               </div>
                             </div>
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea
-                                  name="descrioption"
-                                  id=""
+                                  name="description"
+                                  id="editor"
                                   cols="30"
                                   rows="4"
                                   class="form-control"
                                 >
-The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air unit yet for unimaginable, all-day comfort. There's super breathable fabrics on the upper, while colours add a modern edge. Bring the past into the future with the Nike Air Max 2090, a bold look inspired by the DNA of the iconic Air Max 90. Brand-new Nike Air cushioning
+                                
                                 </textarea>
                               </div>
                             </div>
@@ -72,7 +94,7 @@ The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air uni
                                   class="form-control pt-1"
                                   id="thumbnails"
                                   aria-describedby="thumbnails"
-                                  name="thumbnails"
+                                  name="photo"
                                 />
                                 <small class="text-muted">
                                   Kamu dapat memilih lebih dari satu file
