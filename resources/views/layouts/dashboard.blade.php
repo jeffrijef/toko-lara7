@@ -44,12 +44,12 @@
             >
             <a
               href="{{ route('dashboard-setting-store') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('/dashboard/settings*')) ? 'active' : '' }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard/settings*')) ? 'active' : '' }}"
               >Store Settings</a
             >
             <a
               href="{{ route('dashboard-setting-account') }}"
-              class="list-group-item list-group-item-action {{ (request()->is('/dashboard/account*')) ? 'active' : '' }}"
+              class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }}"
               >My Account</a
             >
 

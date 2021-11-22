@@ -15,11 +15,22 @@ Toko Setting
                 <p class="dashboard-subtitle">
                   Make store that profitable
                 </p>
+                @if ($errors->any())
+                      <div class="alert alert-danger">
+                        <ul>
+                          @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                          @endforeach
+                        </ul>
+                      </div>
+                @endif
               </div>
               <div class="dashboard-content">
                 <div class="row">
                   <div class="col-12">
-                    <form action="">
+                    <form action="{{ route('dashboard-setting-redirect','dashboard-setting-store') }}" 
+                          method="POST" enctype="multipart/form-data">
+                      @csrf
                       <div class="card">
                         <div class="card-body">
                           <div class="row">
@@ -31,8 +42,8 @@ Toko Setting
                                   class="form-control"
                                   id="storeName"
                                   aria-describedby="emailHelp"
-                                  name="storeName"
-                                  value="Papel La Casa"
+                                  name="store_name"
+                                  value="{{ $user->store_name }}"
                                 />
                               </div>
                             </div>
@@ -41,12 +52,11 @@ Toko Setting
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label for="category">Category</label>
-                                <select
-                                  name="category"
-                                  id="category"
-                                  class="form-control"
-                                >
-                                  <option value="Furniture">Furniture</option>
+                                <select name="categories_id" class="form-control">
+                                  <option value="{{ $user->categories_id }}">Tidak diganti</option>
+                                  @foreach ($categories as $c)
+                                      <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                  @endforeach
                                 </select>
                               </div>
                             </div>
@@ -64,10 +74,10 @@ Toko Setting
                                   <input
                                     class="custom-control-input"
                                     type="radio"
-                                    name="is_store_open"
+                                    name="store_status"
                                     id="openStoreTrue"
-                                    value="true"
-                                    checked
+                                    value="1"
+                                    {{ $user->store_status == 1 ? 'checked' : '' }}
                                   />
                                   <label
                                     class="custom-control-label"
@@ -81,9 +91,10 @@ Toko Setting
                                   <input
                                     class="custom-control-input"
                                     type="radio"
-                                    name="is_store_open"
+                                    name="store_status"
                                     id="openStoreFalse"
-                                    value="false"
+                                    value="0"
+                                    {{ $user->store_status == 0 || $user->store_status == NULL  ? 'checked' : '' }}
                                   />
                                   <label
                                     makasih
