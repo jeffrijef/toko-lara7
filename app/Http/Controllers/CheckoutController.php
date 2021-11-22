@@ -45,6 +45,10 @@ class CheckoutController extends Controller
             ]);
         }
 
+        // Delete cart
+        Cart::where('users_id',Auth::user()->id)
+              ->delete();
+
         return redirect()->route('home');
 
         //return dd($transaction);
