@@ -52,26 +52,29 @@ Toko Dashboard Transactions
                   >
                     <div class="row mt-3">
                       <div class="col-12 mt-2">
+
+                        @forelse ($sell_t as $s)
                         <a
                           class="card card-list d-block"
-                          href="/dashboard-transactions-details.html"
+                          href="{{ route('dashboard-transaction-details',$s->id) }}"
                         >
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-1">
                                 <img
-                                  src="/images/dashboard-icon-product-1.png"
+                                  src="{{ Storage::url($s->product->galleries->first()->photos ?? '') }}"
                                   alt=""
+                                  class="w-50"
                                 />
                               </div>
                               <div class="col-md-4">
-                                Shirup Marzzan
+                                {{ $s->product->name }}
                               </div>
                               <div class="col-md-3">
-                                Angga Risky
+                                {{ $s->product->user->store_name }}
                               </div>
                               <div class="col-md-3">
-                                12 Januari, 2020
+                                {{ $s->created_at }}
                               </div>
                               <div class="col-md-1 d-none d-md-block">
                                 <img
@@ -82,66 +85,11 @@ Toko Dashboard Transactions
                             </div>
                           </div>
                         </a>
-                        <a
-                          class="card card-list d-block"
-                          href="/dashboard-transactions-details.html"
-                        >
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-md-1">
-                                <img
-                                  src="/images/dashboard-icon-product-2.png"
-                                  alt=""
-                                />
-                              </div>
-                              <div class="col-md-4">
-                                LeBrone X
-                              </div>
-                              <div class="col-md-3">
-                                Masayoshi
-                              </div>
-                              <div class="col-md-3">
-                                11 January, 2020
-                              </div>
-                              <div class="col-md-1 d-none d-md-block">
-                                <img
-                                  src="/images/dashboard-arrow-right.svg"
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </a>
-                        <a
-                          class="card card-list d-block"
-                          href="/dashboard-transactions-details.html"
-                        >
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-md-1">
-                                <img
-                                  src="/images/dashboard-icon-product-3.png"
-                                  alt=""
-                                />
-                              </div>
-                              <div class="col-md-4">
-                                Soffa Lembutte
-                              </div>
-                              <div class="col-md-3">
-                                Shayna
-                              </div>
-                              <div class="col-md-3">
-                                11 January, 2020
-                              </div>
-                              <div class="col-md-1 d-none d-md-block">
-                                <img
-                                  src="/images/dashboard-arrow-right.svg"
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </a>
+                        @empty
+                            Masih Kosong
+                        @endforelse
+                        
+                        
                       </div>
                     </div>
                   </div>
@@ -153,26 +101,28 @@ Toko Dashboard Transactions
                   >
                     <div class="row mt-3">
                       <div class="col-12 mt-2">
+                        @forelse ($buy_t as $b)
                         <a
                           class="card card-list d-block"
-                          href="/dashboard-transactions-details.html"
+                          href="{{ route('dashboard-transaction-details',$b->id) }}"
                         >
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-1">
                                 <img
-                                  src="/images/dashboard-icon-product-1.png"
+                                  src="{{ Storage::url($b->product->galleries->first()->photos ?? '') }}"
                                   alt=""
+                                  class="w-50"
                                 />
                               </div>
                               <div class="col-md-4">
-                                Shirup Marzzan
+                                {{ $b->product->name }}
                               </div>
                               <div class="col-md-3">
-                                Angga Risky
+                                {{ $b->product->user->store_name }}
                               </div>
                               <div class="col-md-3">
-                                12 Januari, 2020
+                                {{ $b->created_at }}
                               </div>
                               <div class="col-md-1 d-none d-md-block">
                                 <img
@@ -183,6 +133,9 @@ Toko Dashboard Transactions
                             </div>
                           </div>
                         </a>
+                        @empty
+                            Masih Kosong
+                        @endforelse
                       </div>
                     </div>
                   </div>

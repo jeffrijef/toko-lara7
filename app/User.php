@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Models\Province;
+use App\Models\Regency;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -37,4 +40,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function provinces()
+    {
+        return $this->belongsTo(Province::class,'provinces_id','id');
+    }
+
+    public function regences()
+    {
+        return $this->belongsTo(Regency::class,'regencies_id','id');
+    }
 }

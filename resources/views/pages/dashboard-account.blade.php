@@ -85,7 +85,7 @@ Account Setting
                                   id="province"
                                   class="form-control"
                                 >
-                                  <option value="{{ $user->provinces_id }}"></option>
+                                  <option value="{{ $user->provinces_id }}">{{ $user->provinces->name }}</option>
                                 </select>
                               </div>
                             </div>
@@ -97,7 +97,7 @@ Account Setting
                                   id="city"
                                   class="form-control"
                                 >
-                                  <option value="{{ $user->regencies_id }}"></option>
+                                  <option value="{{ $user->regencies_id }}">{{ $user->regences->name }}</option>
                                 </select>
                               </div>
                             </div>
